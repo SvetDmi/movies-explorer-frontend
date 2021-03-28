@@ -1,0 +1,141 @@
+.aboutMe {
+}
+
+.aboutMe__resume {
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: repeat(4, auto);
+  grid-template-areas:
+    "name . photo"
+    "job . photo"
+    "text . photo"
+    "links . photo";
+  margin: 66px 0 0 0;
+}
+
+.aboutMe__name {
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 115%;
+  letter-spacing: -0.04em;
+  margin: 0 0 18px;
+  grid-area: name;
+}
+
+.aboutMe__job {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 110%;
+  margin: 0 0 26px;
+  grid-area: job;
+}
+
+.aboutMe__photo {
+  grid-area: photo;
+  border-radius: 10px;
+  width: 270px;
+}
+
+.aboutMe__links {
+  grid-area: links;
+  display: flex;
+}
+
+.aboutMe__text {
+  grid-area: text;
+  margin-bottom: 100px;
+}
+
+@media all and (max-width: 800px) {
+  .aboutMe__resume {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "name  photo"
+      "job  photo"
+      "text  photo"
+      "links  photo";
+    column-gap: 50px;
+  }
+  .aboutMe__photo {
+    width: 255px;
+  }
+
+  .aboutMe__name {
+    font-size: 40px;
+    margin: 0 0 16px;
+  }
+
+  .aboutMe__job {
+    font-size: 12px;
+    margin: 0 0 20px;
+  }
+  .aboutMe__text {
+    margin-bottom: 85px;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .aboutMe__resume {
+    column-gap: 25px;
+  }
+  .aboutMe__photo {
+    width: 220px;
+  }
+  .aboutMe__name {
+    font-size: 35px;
+  }
+  .aboutMe__text {
+    margin-bottom: 40px;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .aboutMe__resume {
+    column-gap: 15px;
+  }
+  .aboutMe__photo {
+    width: 200px;
+  }
+  .aboutMe__name {
+    font-size: 30px;
+  }
+  .aboutMe__text {
+    margin-bottom: 20px;
+  }
+}
+
+@media all and (max-width: 420px) {
+  .aboutMe__resume {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, auto);
+    grid-template-areas:
+      "photo"
+      "name"
+      "job"
+      "text"
+      "links";
+    margin: 60px 0 0 0;
+    align-items: center;
+    justify-items: center;
+  }
+  .aboutMe__photo {
+    margin-bottom: 40px;
+  }
+
+  .aboutMe__name {
+    font-size: 30px;
+    margin: 0 0 20px;
+  }
+  .aboutMe__job {
+    font-size: 11px;
+  }
+  .aboutMe__text {
+    margin-bottom: 40px;
+  }
+
+  .aboutMe__links {
+    align-self: start;
+    justify-self: start;
+  }
+}

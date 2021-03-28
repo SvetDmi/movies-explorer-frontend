@@ -1,0 +1,90 @@
+.popup {
+  visibility: hidden;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+
+  /* transition: visibility 0.5s, opacity 0.5s ease-in; */
+}
+.popup_opened {
+  visibility: visible;
+  transition: ease-in 0.3s;
+}
+
+.popup__container {
+  position: absolute;
+  width: 68%;
+  height: 100vh;
+  top: 0px;
+  right: -500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fafafa;
+  visibility: hidden;
+}
+
+.popup__container_opened {
+  visibility: visible;
+  right: 0px;
+  transition: ease-in-out 1s;
+}
+
+.popup__close {
+  width: 22px;
+  height: 22px;
+  background: url("../../images/icon_close.png") no-repeat center transparent;
+  background-size: cover;
+  margin-bottom: 105px;
+  padding: 22px;
+  align-self: flex-end;
+  border: none;
+  cursor: pointer;
+}
+
+.popup__link {
+  text-decoration: none;
+  color: black;
+  display: block;
+  font-size: 18px;
+  margin: 0 0 28px;
+}
+
+/* .popup__link:hover {
+  text-decoration: underline;
+} */
+
+.popup__link_active {
+  text-decoration: underline;
+}
+
+.popup__sign {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 90%;
+}
+
+.popup__sign_profile {
+  font-size: 14px;
+  margin: 0 13px 0 0;
+}
+
+.popup__sign_profilePic {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url("../../images/icon_main.png") no-repeat center transparent;
+}
+
+@media all and (max-width: 400px) {
+  .popup__container {
+    width: 100%;
+  }
+}
