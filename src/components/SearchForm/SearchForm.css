@@ -1,0 +1,139 @@
+.searchForm {
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid #aaaaaa;
+
+  padding: 80px 0 90px 0;
+}
+
+.searchForm__form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+
+  box-sizing: border-box;
+  border-radius: 50px;
+  margin-right: 3%;
+  border: 1.5px solid #aaaaaa;
+}
+
+.searchForm__input {
+  border: none;
+  outline: none;
+  width: 70%;
+  vertical-align: middle;
+  font-size: 14px;
+  line-height: 130%;
+  background: #fafafa;
+  padding: 0;
+  margin: auto 10px;
+  border: none;
+}
+
+.searchForm__input_error {
+  color: #ee3465;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+
+}
+
+.searchForm__input_error:focus {
+  outline: none;
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration { display: none; }
+input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
+
+/* .searchForm__input:focus {
+  outline: 1px solid blue;
+} */
+
+.searchForm__button {
+  width: 80px;
+  height: 34px;
+  background: #3456f3;
+  border-radius: 48px;
+  border: none;
+  background-image: url(../../images/icon_search.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 0;
+  margin: 7px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.searchForm__shortMovies {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchForm__text {
+  font-size: 14px;
+  margin-right: 12px;
+}
+
+.searchForm__switch {
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  border-radius: 16px;
+  background: #fafafa;
+  box-shadow: 0px 4px 4px rgba(50, 50, 71, 0.08),
+    0px 4px 8px rgba(50, 50, 71, 0.06);
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition-duration: 300ms;
+}
+
+.searchForm__switch:after {
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 17px;
+  background: #ebebeb;
+  top: 2px;
+  left: 2px;
+  transition-duration: 300ms;
+  position: absolute;
+  z-index: 1;
+}
+.searchForm__switch_active {
+}
+
+.searchForm__switch_active:after {
+  top: 2px;
+  left: 18px;
+  background: #2be080;
+}
+
+@media all and (max-width: 800px) {
+  .searchForm {
+    flex-direction: column;
+    padding: 60px 0 65px;
+  }
+  .searchForm__text {
+    font-size: 13px;
+  }
+}
+
+@media all and (max-width: 350px) {
+  .searchForm {
+    padding: 60px 0 55px;
+  }
+  .searchForm__text {
+    font-size: 11px;
+  }
+}

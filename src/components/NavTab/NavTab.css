@@ -1,0 +1,14 @@
+.navTab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  
+}
+
+@media all and (max-width: 350px) {
+  .navTab {
+    padding-bottom: 17px;
+  }
+}

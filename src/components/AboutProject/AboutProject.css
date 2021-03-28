@@ -1,0 +1,108 @@
+.aboutProject {
+  display: grid;
+  grid-template-rows: auto auto 36px auto;
+  grid-template-columns: 2fr 3fr 5fr;
+  margin-bottom: 110px;
+
+  /* grid-template-areas:
+    "title title title"
+    "block1 block1 block2"
+    "time1 time2 time2"
+    "part1 part2 part2"; */
+}
+
+.aboutProject__title {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: -0.04em;
+  margin: 70px 0 26px;
+}
+
+.aboutProject__block1 {
+  margin-bottom: 110px;
+  grid-area: 1 / 1 / 2 / 3;
+}
+.aboutProject__block2 {
+  margin-bottom: 110px;
+  grid-area: 1 / 3 / 2 / 4;
+}
+.aboutProject__time {
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+}
+.aboutProject__time_1 {
+  background: #3456f3;
+  color: white;
+  grid-area: 2 / 1 / 3 / 2;
+}
+.aboutProject__time_2 {
+  background: #f2f2f2;
+  grid-area: 2 / 2 / 3 / 4;
+}
+
+.aboutProject__part {
+  color: #a0a0a0;
+  text-align: center;
+  margin: 14px 0 100px;
+}
+.aboutProject__part_1 {
+  grid-area: 3 / 1 / 4 / 2;
+}
+.aboutProject__part_2 {
+  grid-area: 3 / 2 / 4 / 4;
+}
+
+@media all and (max-width: 800px) {
+  .aboutProject__title {
+    margin-bottom: 90px;
+  }
+  .aboutProject__title {
+    margin: 70px 0 22px;
+  }
+  .aboutProject__block1 {
+    margin-bottom: 93px;
+  }
+  .aboutProject__block2 {
+    margin-bottom: 93px;
+  }
+}
+
+@media all and (max-width: 350px) {
+  .aboutProject {
+    grid-template-rows: auto auto 36px 140px;
+    margin-bottom: 70px;
+  }
+  .aboutProject__title {
+    font-size: 18px;
+    margin-bottom: 60px 0 16px;
+  }
+
+  .aboutProject__block1 {
+    grid-area: 1 / 1 / 2 / 4;
+    margin-bottom: 0;
+  }
+  .aboutProject__block2 {
+    grid-area: 2 / 1 / 3 / 4;
+    margin-bottom: 60px;
+  }
+
+  .aboutProject__time_1 {
+    grid-area: 3 / 1 / 4 / 2;
+  }
+  .aboutProject__time_2 {
+    grid-area: 3 / 2 / 4 / 4;
+  }
+  .aboutProject__part {
+    margin: 10px 0 70px 0;
+  }
+  .aboutProject__part_1 {
+    grid-area: 4 / 1 / 4 / 2;
+  }
+  .aboutProject__part_2 {
+    grid-area: 4 / 2 / 4 / 4;
+  }
+}
