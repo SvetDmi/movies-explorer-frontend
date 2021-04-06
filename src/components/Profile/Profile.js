@@ -2,11 +2,19 @@ import React from 'react';
 import Form from '../Form/Form';
 import Input from '../Input/Input';
 import useInput from '../../utils/Hooks/useInput';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 
-function Profile() {
-    const name = useInput('', { minLength: 5, maxLength: 30 })
-    const email = useInput('', { minLength: 3, isEmail: true })
+function Profile({ onLogout, onEditUser }) {
+
+    const currentUser = React.useContext(CurrentUserContext);
+    const name = useInput(currentUser.name, { minLength: 5, maxLength: 30 })
+    const email = useInput(currentUser.email, { minLength: 3, isEmail: true })
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onEditUser({ name: name.value, email: email.value })
+    }
 
     return (
         <section className="page__section_white">
@@ -14,12 +22,15 @@ function Profile() {
                 sort="profile"
                 formTitle="Привет, Светлана!"
                 buttonText="Редактировать"
+                onSubmit={handleSubmit}
                 linkWay="./signup"
                 text=""
                 linkText="Выйти из аккаунта"
+                onClick={onLogout}
+                isValidAll={email.inputValid && name.inputValid}
             >
                 <Input
-                    placeholder="Светлана"
+                    placeholder=''
                     label="Имя"
                     onChange={e => name.onChange(e)}
                     onBlur={e => name.onBlur(e)}
@@ -30,7 +41,7 @@ function Profile() {
                 />
 
                 <Input
-                    placeholder="pochta@yandex.ru"
+                    placeholder=''
                     label="Почта"
                     onChange={e => email.onChange(e)}
                     onBlur={e => email.onBlur(e)}

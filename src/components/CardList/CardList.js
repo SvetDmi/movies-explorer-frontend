@@ -3,9 +3,10 @@ import React from 'react';
 // import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function CardList
-    ({
+    (
         children
-    }) {
+    ) 
+    {
     // const currentUser = React.useContext(CurrentUserContext);
     return (
         <section className="page__section cardList">

@@ -47,8 +47,10 @@
 .card__img {
   display: block;
   width: 100%;
-  /* height: 200px; */
-  object-fit: contain;
+  height: 200px;
+  object-fit: cover;
+  cursor: pointer;
+  align-items: center;
 }
 
 .card__button {
@@ -71,11 +73,13 @@
 }
 
 .card__button_save {
-  background-color: #f4f4f4;
-  font-size: 12px;
+  opacity: 1;
+  background-image: url(../../images/save6.png);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.card__button_like {
+.card__button_saved {
   opacity: 1;
   background-color: #ee3465;
   background-image: url(../../images/icon_save.png);
@@ -126,6 +130,10 @@
     width: 100%;
     margin-right: 0;
     margin-bottom: 5%;
+  }
+
+  .card__item:nth-child(odd) {
+    margin-right: 0;
   }
   .card__title {
     font-size: 12px;

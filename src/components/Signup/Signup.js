@@ -4,10 +4,17 @@ import Input from '../Input/Input';
 import logo from '../../images/logo.svg';
 import useInput from '../../utils/Hooks/useInput';
 
-function Signup() {
+function Signup({ onRegister }) {
     const name = useInput('', { minLength: 5, maxLength: 30 })
     const email = useInput('', { minLength: 3, isEmail: true })
     const password = useInput('', { minLength: 5, maxLength: 15 })
+
+
+    const handleRegisterSubmit = (e) => {
+        e.preventDefault();
+        onRegister({ name: name.value, email: email.value, password: password.value })
+    }
+
 
     return (
         <section className="page__section_auth">
@@ -19,6 +26,8 @@ function Signup() {
                 linkWay="./signin"
                 text="Уже зарегистрированы?"
                 linkText="Войти"
+                onSubmit={handleRegisterSubmit}
+                isValidAll={name.inputValid && email.inputValid && password.inputValid}
             >
 
                 <Input
@@ -29,6 +38,7 @@ function Signup() {
                     value={name.value}
                     type="text"
                     name="name"
+                    autoComplete="current-name"
                     validError={name.isDirty && (name.minLengthError || name.maxLengthError)}
                 />
 
@@ -40,6 +50,7 @@ function Signup() {
                     value={email.value}
                     name='email'
                     type='text'
+                    autoComplete="current-email"
                     validError={email.isDirty && (email.minLengthError || email.emailError)}
                 />
 
@@ -51,8 +62,8 @@ function Signup() {
                     name='password'
                     type='password'
                     placeholder=''
+                    autoComplete="current-password"
                     validError={password.isDirty && (password.minLengthError || password.maxLengthError)}
-
                 />
             </Form>
         </section >

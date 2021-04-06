@@ -4,10 +4,15 @@ import Form from '../Form/Form';
 import Input from '../Input/Input';
 import useInput from '../../utils/Hooks/useInput';
 
-function Signin() {
+function Signin({ onLogin }) {
 
     const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true })
     const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 15 })
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onLogin({ email: email.value, password: password.value })
+    }
 
     return (
         <section className="page__section_auth">
@@ -18,6 +23,8 @@ function Signin() {
                 linkWay="./signup"
                 text="Еще не зарегистрированы?"
                 linkText="Регистрация"
+                onSubmit={handleSubmit}
+                isValidAll={email.inputValid && password.inputValid}
             >
                 <Input
                     placeholder="pochta@yandex.ru"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Input = ({ sort, label, onChange, onBlur, value, name, type, placeholder, validError }) => {
+const Input = ({ sort, label, onChange, onBlur, value, name, type, placeholder, autoComplete, validError }) => {
     return (
         <div className='input'>
             <label className={`input__label input__label_${sort} `}>{label} </label>
@@ -11,7 +11,9 @@ const Input = ({ sort, label, onChange, onBlur, value, name, type, placeholder, 
                 value={value}
                 name={name}
                 type={type}
-                placeholder={placeholder} />
+                placeholder={placeholder}
+                autoComplete={autoComplete}
+                required />
             {(validError) && <span className='input__error'>Что-то пошло не так</span>}
 
         </div>
