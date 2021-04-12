@@ -1,5 +1,5 @@
-export const BASE_URL = 'https://api.svetdmi2.students.nomoredomains.monster';
-// export const BASE_URL = 'http://localhost:4000';
+// export const BASE_URL = 'https://api.svetdmi2.students.nomoredomains.monster';
+export const BASE_URL = 'http://localhost:4000';
 
 const headers = {
     'Accept': 'application/json',
@@ -12,15 +12,21 @@ export const register = (name, email, password) => {
         headers: headers,
         body: JSON.stringify({ name, email, password })
     })
-        .then((res) => {
+        .then((res => {
             let data = res.json();
             if (!res.ok) {
-                return Promise.reject(res.status);
+                return Promise.reject({ code: res.status });
+                // console.log(res.status)
             }
-            localStorage.setItem('token', data.token);
             return data;
+        }))
+        .then((data) => {
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                return data;
+            }
         })
-        .catch(err => console.log(err));
+
 };
 
 
@@ -33,7 +39,7 @@ export const login = (email, password) => {
         .then((res => {
             let data = res.json();
             if (!res.ok) {
-                return Promise.reject(res.status);
+                return Promise.reject({ code: res.status });
             }
             return data;
         }))
@@ -43,7 +49,7 @@ export const login = (email, password) => {
                 return data;
             }
         })
-        .catch(err => console.log(err))
+
 };
 
 export const checkToken = (token) => {

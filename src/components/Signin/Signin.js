@@ -4,7 +4,7 @@ import Form from '../Form/Form';
 import Input from '../Input/Input';
 import useInput from '../../utils/Hooks/useInput';
 
-function Signin({ onLogin }) {
+function Signin({ onLogin, serverError }) {
 
     const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true })
     const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 15 })
@@ -25,6 +25,7 @@ function Signin({ onLogin }) {
                 linkText="Регистрация"
                 onSubmit={handleSubmit}
                 isValidAll={email.inputValid && password.inputValid}
+                serverError={serverError}
             >
                 <Input
                     placeholder="pochta@yandex.ru"

@@ -4,7 +4,7 @@ import Input from '../Input/Input';
 import logo from '../../images/logo.svg';
 import useInput from '../../utils/Hooks/useInput';
 
-function Signup({ onRegister }) {
+function Signup({ onRegister, serverError }) {
     const name = useInput('', { minLength: 5, maxLength: 30 })
     const email = useInput('', { minLength: 3, isEmail: true })
     const password = useInput('', { minLength: 5, maxLength: 15 })
@@ -13,6 +13,7 @@ function Signup({ onRegister }) {
     const handleRegisterSubmit = (e) => {
         e.preventDefault();
         onRegister({ name: name.value, email: email.value, password: password.value })
+
     }
 
 
@@ -28,6 +29,7 @@ function Signup({ onRegister }) {
                 linkText="Войти"
                 onSubmit={handleRegisterSubmit}
                 isValidAll={name.inputValid && email.inputValid && password.inputValid}
+                serverError={serverError}
             >
 
                 <Input

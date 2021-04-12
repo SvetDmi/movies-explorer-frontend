@@ -1,30 +1,28 @@
 import React from 'react';
-import SearchForm from '../SearchForm/SearchForm';
-import CardList from '../CardList/CardList';
-import Card from '../Card/Card'
 import Footer from '../Footer/Footer';
+import MoviesList from '../MoviesList/MoviesList';
 
 
-function SavedMovies(
+function SavedMovies({
+    cards,
+    savedCards,
+    onDeleteCard,
+    onSaveCard,
+    pageType,
 
-) {
+}) {
     return (
-        <main className="movies">
-            <SearchForm
+        <main className="moviesList">
+
+            <MoviesList
+                cards={cards}
+                savedCards={savedCards}
+                onDeleteCard={onDeleteCard}
+                onSaveCard={onSaveCard}
+                pageType={pageType}
             />
-            <CardList>
-                <Card
-                    isSaved={true}
-                />
-                <Card
-                    isSaved={true}
-                />
-                <Card
-                    isSaved={true}
-                />
-            </CardList>
             <Footer />
-        </main>
+        </main >
     );
 }
 

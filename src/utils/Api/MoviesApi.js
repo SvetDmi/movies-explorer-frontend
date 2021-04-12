@@ -7,6 +7,8 @@ const headers = {
     // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
 };
 
+
+
 export const getMovies = () => {
     return fetch('https://api.nomoreparties.co/beatfilm-movies', {
         method: 'GET',
@@ -24,7 +26,8 @@ export const getMovies = () => {
         //     console.log(data)
         // })
         .catch(err => console.log(err));
-};
+
+}
 
 
 

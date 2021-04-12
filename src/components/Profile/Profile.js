@@ -5,11 +5,13 @@ import useInput from '../../utils/Hooks/useInput';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 
-function Profile({ onLogout, onEditUser }) {
+function Profile({ onLogout, onEditUser, serverError }) {
 
     const currentUser = React.useContext(CurrentUserContext);
-    const name = useInput(currentUser.name, { minLength: 5, maxLength: 30 })
-    const email = useInput(currentUser.email, { minLength: 3, isEmail: true })
+    // const name = useInput(currentUser.name, { minLength: 5, maxLength: 30 })
+    // const email = useInput(currentUser.email, { minLength: 3, isEmail: true })
+    const name = useInput(currentUser.name)
+    const email = useInput(currentUser.email)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,6 +30,7 @@ function Profile({ onLogout, onEditUser }) {
                 linkText="Выйти из аккаунта"
                 onClick={onLogout}
                 isValidAll={email.inputValid && name.inputValid}
+                serverError={serverError}
             >
                 <Input
                     placeholder=''

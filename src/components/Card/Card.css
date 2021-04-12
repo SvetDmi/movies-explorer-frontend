@@ -53,6 +53,14 @@
   align-items: center;
 }
 
+.card__link {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  color: black;
+  width: 100%;
+}
+
 .card__button {
   width: 100px;
   height: 29px;
@@ -60,6 +68,7 @@
   border: none;
   margin: 18px auto;
   padding: 0;
+  overflow: hidden;
 }
 
 .card__button:hover {
@@ -69,6 +78,9 @@
 .card__button:focus {
   outline: none;
   border-radius: none;
+  width: 110px;
+}
+.card__button:active {
   width: 110px;
 }
 
@@ -93,6 +105,9 @@
   background-image: url(../../images/icon_delete.png);
   background-repeat: no-repeat;
   background-position: center;
+}
+.card__button_wtf {
+  background-color: blue;
 }
 
 .card__button_hidden {

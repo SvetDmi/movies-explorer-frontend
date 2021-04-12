@@ -1,43 +1,31 @@
 import React from 'react';
-import SearchForm from '../SearchForm/SearchForm';
-// import CardList from '../CardList/CardList';
-import Card from '../Card/Card'
 import Footer from '../Footer/Footer';
+import MoviesList from '../MoviesList/MoviesList';
 
 function Movies({
-    cards,
 
-    isSaved,
+    cards,
+    savedCards,
+    onDeleteCard,
+    onSaveCard,
+    pageType, 
+  
 
 }) {
-
-    function handleCardClick() {
-        console.log('Save movie')
-    }
-
+  
+ 
     return (
-        <main className="movies">
+        <main className="moviesList">
 
-            <SearchForm />
+            <MoviesList
 
-            <section className="page__section cardList">
-                <ul className="cardsList__items">
-                    {
-                        cards.map((card) =>
-                            < Card
-                                card={card}
-                                sort={`${isSaved ? 'saved' : 'save'}`}
-                                key={card.id}
-                                onCardClick={handleCardClick}
-
-
-                            />
-                        )
-                    }
-                </ul>
-            </section>
-
-            <button className="movies__button" type="button" > Ещё</button >
+                cards={cards}
+                savedCards={savedCards}
+                onDeleteCard={onDeleteCard}
+                onSaveCard={onSaveCard}
+                pageType={pageType}
+                
+            />
             <Footer />
         </main >
     );
