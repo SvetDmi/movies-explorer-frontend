@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../images/logo.svg';
 import { Route, Switch, NavLink } from 'react-router-dom';
 
-function Header({ onMenuClick }) {
+function Header({ onMenuClick, onMovieClick, onSavedMovieClick }) {
 
     return (
 
@@ -11,8 +11,8 @@ function Header({ onMenuClick }) {
             <Switch>
                 <Route path={["/movies/", "/saved-movies/", "/profile/"]}>
                     <nav className="header__movies" >
-                        <NavLink to="./movies" className="page__link" activeClassName="page__link_active">Фильмы</NavLink>
-                        <NavLink to="./saved-movies" className="page__link" activeClassName="page__link_active">Сохраненные фильмы</NavLink>
+                        <NavLink to="./movies" className="page__link" activeClassName="page__link_active" onClick={onMovieClick} >Фильмы</NavLink>
+                        <NavLink to="./saved-movies" className="page__link" activeClassName="page__link_active" onClick={onSavedMovieClick}>Сохраненные фильмы</NavLink>
                     </nav>
                     <nav className="header__profile">
                         <NavLink to="./profile" className="page__link header__profile_akk">Аккаунт</NavLink>

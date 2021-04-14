@@ -8,12 +8,12 @@ function SavedMovies({
     savedCards,
     onDeleteCard,
     onSaveCard,
-    pageType,
+    pageType
+
 
 }) {
     return (
         <main className="moviesList">
-
             <MoviesList
                 cards={cards}
                 savedCards={savedCards}

@@ -1,11 +1,9 @@
 import React from 'react';
 
-// import useInput from '../../utils/Hooks/useInput';
+function SearchForm({ onSearchSubmit, cards, movieSearch, searchWord, onToggle, isChecked }) {
 
-
-function SearchForm({ onSearchSubmit, cards, movieSearch, searchWord, onToggle }) {
-    // const movieSearch = useInput('', { minLength: 2, noEmpty: 2 });
     const [isFocus, setFocus] = React.useState(false);
+
 
     function formFocus() {
         setFocus(true)
@@ -16,8 +14,7 @@ function SearchForm({ onSearchSubmit, cards, movieSearch, searchWord, onToggle }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // let searchWord = movieSearch.value
-        onSearchSubmit(cards, searchWord);
+        onSearchSubmit(cards, searchWord, isChecked);
     }
 
     return (
@@ -36,10 +33,6 @@ function SearchForm({ onSearchSubmit, cards, movieSearch, searchWord, onToggle }
                     value={movieSearch.value}
                     onChange={e => movieSearch.onChange(e)}
                     onBlur={e => movieSearch.onBlur(e)}
-
-                    // value={value}
-                    // onChange={onChange}
-                    // onBlur={onBlur}
                     required
                 />
                 {((movieSearch.isDirty && movieSearch.minLengthError) && movieSearch.noEmpty) &&
@@ -49,22 +42,10 @@ function SearchForm({ onSearchSubmit, cards, movieSearch, searchWord, onToggle }
                     type="submit"
                     className="searchForm__button"
                     disabled={!movieSearch.inputValid}
-
-                // disabled={disabled}
-
                 >
                 </button>
             </form>
-            {/* 
-            <label htmlFor="checkbox" className="searchForm__shortMovies">
-                <span className="searchForm__text">Короткометражки</span>
-                <input 
-                type="checkbox" 
-                className="searchForm__switch searchForm__switch_active "
-                // onChange={toggleSwitch}
-                
-                />
-            </label> */}
+
             <p className="searchForm__text">Короткометражки</p>
             <div className="searchForm__check-block">
 
@@ -75,20 +56,7 @@ function SearchForm({ onSearchSubmit, cards, movieSearch, searchWord, onToggle }
                     />
                     <span className="searchForm__check-toggle"></span>
                 </label>
-
             </div>
-
-            {/* <div className="search-bar__container">
-          <label htmlFor="checkbox" className="search-bar__switch">
-            <input type="checkbox" 
-              className="search-bar__checkbox" 
-              onChange={toggleCheckbox} id="checkbox"
-            />
-            <span className="search-bar__slider"></span>
-          </label>
-          <p className="search-bar__placeholder">Короткометражки</p>
-        </div> */}
-
         </section >
     );
 }

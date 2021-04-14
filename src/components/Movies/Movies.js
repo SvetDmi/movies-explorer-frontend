@@ -8,23 +8,20 @@ function Movies({
     savedCards,
     onDeleteCard,
     onSaveCard,
-    pageType, 
-  
+    pageType
 
 }) {
-  
- 
+
     return (
         <main className="moviesList">
 
             <MoviesList
-
                 cards={cards}
                 savedCards={savedCards}
                 onDeleteCard={onDeleteCard}
                 onSaveCard={onSaveCard}
                 pageType={pageType}
-                
+
             />
             <Footer />
         </main >

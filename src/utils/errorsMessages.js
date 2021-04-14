@@ -20,6 +20,8 @@ const ERROR500 = "На сервере произошла ошибка";
 
 const ERROR404 = "Страница по указанному маршруту не найдена";
 
+const ERROR_SEARCH = "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
+
 module.exports = {
     ERROR400Signin,
     ERROR401Signin,
@@ -28,6 +30,7 @@ module.exports = {
     ERROR400Profile,
     ERROR409,
     ERROR500,
-    ERROR404
+    ERROR404,
+    ERROR_SEARCH
 
 };

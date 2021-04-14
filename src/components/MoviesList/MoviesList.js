@@ -5,8 +5,7 @@ import Card from '../Card/Card'
 import useInput from '../../utils/Hooks/useInput';
 import Preloader from "../Preloader/Preloader";
 import useWindowSize from '../../utils/Hooks/useWindowSize';
-import Error from '../Error/Error';
-
+import SearchMessage from '../SearchMessage/SearchMessage';
 
 
 function MoviesList({
@@ -16,26 +15,13 @@ function MoviesList({
     onDeleteCard,
     onSaveCard,
 }) {
-
-
     const [foundCards, setFoundCards] = React.useState([]);
     const [isLoading, setLoading] = React.useState(false);
     const [isChecked, setChecked] = React.useState(false);
-    const [searchState, setSearchState] = React.useState({});
+    const [isSearchEmpty, setSearchEmpty] = React.useState(false)
     const movieSearch = useInput('', { minLength: 2, noEmpty: 2 });
     const windowWidth = useWindowSize();
     const searchWord = movieSearch.value;
-
-    React.useEffect(() => {
-        setSearchState(localStorage.getItem("localData"));
-    }, []);
-
-    React.useEffect(() => {
-        setTimeout(() => {
-            filterCards(cards, searchState.searchWord, searchState.isChecked);
-        }, 1000);
-    }, [searchState, cards])
-
 
     // зависимость от ширины экрана
     let countCards = 0;
@@ -61,52 +47,59 @@ function MoviesList({
         setChecked(!isChecked);
     }
 
+    React.useEffect(() => {
+        filterCards(cards, searchWord, isChecked);
+    }, [savedCards])
+
+    // ВОТ ТУТ СТЕЙТ НАЙДЕННЫХ КАРТОЧЕК ОБНОВЛЯЕТСЯ и там внизу в return идет foundCards.map 
     function filterCards(cards, searchWord, isChecked) {
-
-        // if (!searchWord) {
-        //     setFoundCards([]);
-        //     return
-        // }
-
+        if (!searchWord) {
+            setFoundCards([]);
+            return
+        }
         let filteredData = cards.filter((card) => {
-            let fits = !searchWord || card.nameRU.toLowerCase().includes(searchWord.toLowerCase());
+            let fits = card.nameRU.toLowerCase().includes(searchWord.toLowerCase());
             return isChecked ? fits && card.duration <= 40 : fits;
         })
-
-
-        if (isChecked) {
-            setFoundCards(filteredData)
-            console.log(filteredData);
+        if (filteredData.length === 0) {
+            setSearchEmpty(true)
             setLoading(false);
+            setFoundCards(filteredData)
+
         } else {
+            setSearchEmpty(false)
+            setLoading(false);
             setFoundCards(filteredData)
             console.log(filteredData);
-            setLoading(false);
         }
     }
 
-    function handleSearchSubmit(cards, searchWord) {
-        setLoading(true);
-        localStorage.setItem("localData", JSON.stringify(searchState));
-        setSearchState({ searchWord: searchWord, isChecked: isChecked });
+    function getStateClass() {
+        if (!pageType) {
+            return 'moviesList__button moviesList__button_hidden';
+        }
+        else {
+            if (foundCards.length <= 12 || countMovies >= foundCards.length) {
+                return 'moviesList__button moviesList__button_hidden';
+            } else { return 'moviesList__button' }
+        }
     }
 
+    function handleSearchSubmit(cards, searchWord, isChecked) {
+        setLoading(true);
+        setFoundCards([]);
+        setTimeout(() => {
+            filterCards(cards, searchWord, isChecked);
+        }, 1000);
+    }
 
 
     let element;
     if (isLoading) {
         element = <Preloader />
+    } else if (isSearchEmpty) {
+        element = <SearchMessage />
     }
-    else if (foundCards.length === 0 && searchWord) {
-        element = <Error />
-    }
-    // else if (serverError) {
-    //     return <p className="errorfindedCards">
-    //         Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен.
-    //         Подождите немного и попробуйте ещё раз
-    //         </p>
-    // }
-
 
     return (
 
@@ -120,8 +113,6 @@ function MoviesList({
                 isChecked={isChecked}
                 onToggle={handleToggle}
             />
-            {/* {isLoading ? (<Preloader />) : */}
-
             <section className="page__section ">
                 <ul className="moviesList__items">
                     {element}
@@ -129,7 +120,7 @@ function MoviesList({
                         foundCards.map((card) =>
                             <Card
                                 card={card}
-                                key={card.id}
+                                key={card.id || card._id}
                                 pageType={pageType}
                                 liked={savedCards.find((c) => c.movieId === card.id)}
                                 onDeleteCard={onDeleteCard}
@@ -143,7 +134,8 @@ function MoviesList({
             </section>
 
             <button
-                className={`moviesList__button ${foundCards.length <= 12 || countMovies >= foundCards.length ? 'moviesList__button_hidden' : ''}`}
+                // className={`moviesList__button ${foundCards.length <= 12 || countMovies >= foundCards.length ? 'moviesList__button_hidden' : ''}`}
+                className={getStateClass()}
                 type="button"
                 onClick={handleMoreCards}>
                 Ещё

@@ -1,5 +1,5 @@
-// export const BASE_URL = 'https://api.svetdmi2.students.nomoredomains.monster';
-export const BASE_URL = 'http://localhost:4000';
+export const BASE_URL = 'https://api.svetdmi2.students.nomoredomains.monster';
+// export const BASE_URL = 'http://localhost:4000';
 
 const headers = {
     'Accept': 'application/json',
@@ -26,9 +26,7 @@ export const register = (name, email, password) => {
                 return data;
             }
         })
-
 };
-
 
 export const login = (email, password) => {
     return fetch(`${BASE_URL}/signin`, {
@@ -49,7 +47,6 @@ export const login = (email, password) => {
                 return data;
             }
         })
-
 };
 
 export const checkToken = (token) => {
@@ -65,4 +62,3 @@ export const checkToken = (token) => {
         .then(data => data)
 
 };
-

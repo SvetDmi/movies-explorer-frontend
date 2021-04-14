@@ -56,7 +56,6 @@ class Api {
             .then(this._parsAnswer)
     }
 
-
     // 4. Сохранение фильма
     createMovie(data) {
         return fetch(`${this._url}/movies`, {
@@ -73,6 +72,28 @@ class Api {
                 trailer: data.trailerLink,
                 thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
                 movieId: data.id,
+                nameRU: data.nameRU,
+                nameEN: data.nameEN,
+            })
+        })
+            .then(this._parsAnswer)
+    }
+
+    createSavedMovie(data) {
+        return fetch(`${this._url}/movies`, {
+            method: 'POST',
+            headers: this._headers,
+
+            body: JSON.stringify({
+                country: data.country,
+                director: data.director,
+                duration: data.duration,
+                year: data.year,
+                description: data.description,
+                image: data.image,
+                trailer: data.trailer,
+                thumbnail: data.thumbnail,
+                movieId: data.movieId,
                 nameRU: data.nameRU,
                 nameEN: data.nameEN,
             })

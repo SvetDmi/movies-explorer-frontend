@@ -13,13 +13,10 @@ function Form({ buttonText, sort, formTitle, linkWay, text, linkText, children, 
                 {children}
 
                 <div className={`form__down form__down_${sort}`}>
-                    <p className="form__servererror">{serverError}</p>
+                    <p className="form__servererror">{`${serverError ? serverError : ''}`}</p>
                     <button
                         type="submit"
                         disabled={!isValidAll}
-                        // onClick={onClick}
-                        // onSubmit={onSubmit}
-                        // serverError={serverError}
                         className={`form__button form__button_${sort} ${isValidAll ? 'form__button_active' : 'form__button_disabled'}`}
                     > {buttonText}
                     </button>
