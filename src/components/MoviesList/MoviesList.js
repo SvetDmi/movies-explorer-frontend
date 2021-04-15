@@ -51,10 +51,19 @@ function MoviesList({
         setCountMovie(countMovie + countAdd);
     }
 
+
+    // React.useEffect(() => {
+    //     filterCards(cards, searchWord, isChecked);
+    // }, [savedCards])
+
     // Фильтрация
+
     React.useEffect(() => {
         filterCards(cards, searchWord, isChecked);
-    }, [savedCards])
+        if (isChecked) {
+            fiterShortMovies(foundCards)
+        }
+    }, [savedCards, isChecked])
 
 
     function filterCards(cards, searchWord, isChecked) {
@@ -82,6 +91,15 @@ function MoviesList({
         }
     }
 
+    function fiterShortMovies(foundCards) {
+        let shortMoviesData = foundCards.filter((card) => {
+            return card.duration <= 40
+        })
+        setFoundCards(shortMoviesData)
+    }
+
+    // КНОПКИ
+
     function handleSearchSubmit(cards, searchWord, isChecked) {
         setLoading(true);
         setFoundCards([]);
@@ -89,7 +107,6 @@ function MoviesList({
             filterCards(cards, searchWord, isChecked);
         }, 1000);
     }
-
 
     function handleToggle() {
         setChecked(!isChecked);
