@@ -4,7 +4,6 @@ import Card from '../Card/Card'
 
 import useInput from '../../utils/Hooks/useInput';
 import Preloader from "../Preloader/Preloader";
-import useWindowSize from '../../utils/Hooks/useWindowSize';
 import SearchMessage from '../SearchMessage/SearchMessage';
 
 
@@ -20,41 +19,50 @@ function MoviesList({
     const [isChecked, setChecked] = React.useState(false);
     const [isSearchEmpty, setSearchEmpty] = React.useState(false)
     const movieSearch = useInput('', { minLength: 2, noEmpty: 2 });
-    const windowWidth = useWindowSize();
+
     const searchWord = movieSearch.value;
 
     // зависимость от ширины экрана
-    let countCards = 0;
-    let countNewCards = 0;
-    const [countMovies, setCountMovies] = React.useState(countCards);
 
-    if (windowWidth > 750) {
-        countCards = 12;
-        countNewCards = 4;
-    } else if (windowWidth > 450) {
-        countCards = 8;
-        countNewCards = 2;
-    } else if (windowWidth <= 450) {
-        countCards = 5;
-        countNewCards = 2;
-    }
+    const [countMovie, setCountMovie] = React.useState(12);
+    const [countAdd, setCountAdd] = React.useState(3);
+    const [windowWidth, setWindowWidth] = React.useState(undefined);
+
+    React.useEffect(() => {
+        function handleResize() {
+            setWindowWidth(window.innerWidth);
+            if (windowWidth > 770) {
+                setCountMovie(12);
+                setCountAdd(3);
+            } else if (windowWidth > 480 && windowWidth <= 770) {
+                setCountMovie(8);
+                setCountAdd(2);
+            } else {
+                setCountMovie(5);
+                setCountAdd(1);
+            }
+        }
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize);
+    }, [windowWidth]);
 
     function handleMoreCards() {
-        setCountMovies(countMovies + countNewCards);
+        setCountMovie(countMovie + countAdd);
     }
 
-    function handleToggle() {
-        setChecked(!isChecked);
-    }
-
+    // Фильтрация
     React.useEffect(() => {
         filterCards(cards, searchWord, isChecked);
     }, [savedCards])
 
-    // ВОТ ТУТ СТЕЙТ НАЙДЕННЫХ КАРТОЧЕК ОБНОВЛЯЕТСЯ и там внизу в return идет foundCards.map 
+
     function filterCards(cards, searchWord, isChecked) {
-        if (!searchWord) {
+        if (!searchWord && pageType) {
             setFoundCards([]);
+            return
+        } else if (!searchWord && !pageType) {
+            setFoundCards(savedCards);
             return
         }
         let filteredData = cards.filter((card) => {
@@ -74,17 +82,6 @@ function MoviesList({
         }
     }
 
-    function getStateClass() {
-        if (!pageType) {
-            return 'moviesList__button moviesList__button_hidden';
-        }
-        else {
-            if (foundCards.length <= 12 || countMovies >= foundCards.length) {
-                return 'moviesList__button moviesList__button_hidden';
-            } else { return 'moviesList__button' }
-        }
-    }
-
     function handleSearchSubmit(cards, searchWord, isChecked) {
         setLoading(true);
         setFoundCards([]);
@@ -93,6 +90,10 @@ function MoviesList({
         }, 1000);
     }
 
+
+    function handleToggle() {
+        setChecked(!isChecked);
+    }
 
     let element;
     if (isLoading) {
@@ -117,25 +118,37 @@ function MoviesList({
                 <ul className="moviesList__items">
                     {element}
                     {
-                        foundCards.map((card) =>
-                            <Card
-                                card={card}
-                                key={card.id || card._id}
-                                pageType={pageType}
-                                liked={savedCards.find((c) => c.movieId === card.id)}
-                                onDeleteCard={onDeleteCard}
-                                onSaveCard={onSaveCard}
-                                savedCards={savedCards}
-                            />
-                        )
+                        pageType ?
+
+                            foundCards.slice(0, countMovie).map((card) =>
+                                <Card
+                                    card={card}
+                                    key={card.id || card._id}
+                                    pageType={pageType}
+                                    liked={savedCards.find((c) => c.movieId === card.id)}
+                                    onDeleteCard={onDeleteCard}
+                                    onSaveCard={onSaveCard}
+                                    savedCards={savedCards}
+                                />
+                            )
+                            :
+                            foundCards.map((card) =>
+                                <Card
+                                    card={card}
+                                    key={card.id || card._id}
+                                    pageType={pageType}
+                                    // liked={savedCards.find((c) => c.movieId === card.id)}
+                                    onDeleteCard={onDeleteCard}
+                                    onSaveCard={onSaveCard}
+                                    savedCards={savedCards}
+                                />
+                            )
                     }
                 </ul>
-
             </section>
 
             <button
-                // className={`moviesList__button ${foundCards.length <= 12 || countMovies >= foundCards.length ? 'moviesList__button_hidden' : ''}`}
-                className={getStateClass()}
+                className={`${pageType && foundCards.length > countMovie ? 'moviesList__button' : 'moviesList__button_hidden'}`}
                 type="button"
                 onClick={handleMoreCards}>
                 Ещё
