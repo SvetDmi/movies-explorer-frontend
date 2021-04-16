@@ -74,8 +74,8 @@ function MoviesList({
             setFoundCards(savedCards);
             return
         }
-        let filteredData = cards.filter((card) => {
-            let fits = card.nameRU.toLowerCase().includes(searchWord.toLowerCase());
+        const filteredData = cards.filter((card) => {
+            const fits = card.nameRU.toLowerCase().includes(searchWord.toLowerCase());
             return isChecked ? fits && card.duration <= 40 : fits;
         })
         if (filteredData.length === 0) {
@@ -92,7 +92,7 @@ function MoviesList({
     }
 
     function fiterShortMovies(foundCards) {
-        let shortMoviesData = foundCards.filter((card) => {
+        const shortMoviesData = foundCards.filter((card) => {
             return card.duration <= 40
         })
         setFoundCards(shortMoviesData)
@@ -131,7 +131,7 @@ function MoviesList({
                 isChecked={isChecked}
                 onToggle={handleToggle}
             />
-            <section className="page__section ">
+            <section className="page__section moviesList">
                 <ul className="moviesList__items">
                     {element}
                     {

@@ -36,12 +36,28 @@ function Card({ card, onDeleteCard, onSaveCard, pageType, liked }) {
         }
     }
 
+    function getNoun(number, one, two, five) {
+        let n = Math.abs(number);
+        n %= 100;
+        if (n >= 5 && n <= 20) {
+            return five;
+        }
+        n %= 10;
+        if (n === 1) {
+            return one;
+        }
+        if (n >= 2 && n <= 4) {
+            return two;
+        }
+        return five;
+    }
+
     return (
         <li className="card__item">
             <a href={card.trailerLink} target="_blank" rel="noreferrer" className="card__link">
                 <div className="card__label">
                     <h2 className="card__title">{card.nameRU}</h2>
-                    <p className="card__time">{card.duration}</p>
+                    <p className="card__time">{`${card.duration} ${getNoun(card.duration, 'минута', 'минуты', 'минут')}`}</p>
                 </div>
                 <img src={`${getStateUrl()}`}
                     alt={`Здесь должен был быть кадр из фильма ${card.nameRU}, увы, что-то случилось, и вы его не видите`}

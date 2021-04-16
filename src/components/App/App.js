@@ -14,11 +14,14 @@ import Signin from '../Signin/Signin';
 import Signup from '../Signup/Signup';
 import MenuPopup from '../MenuPopup/MenuPopup';
 import NotFound from '../NotFound/NotFound';
+import Tooltip from '../Tooltip/Tooltip'
+
 
 import { mainApi } from '../../utils/Api/MainApi';
 import { getMovies } from '../../utils/Api/MoviesApi';
 import { register, login, checkToken } from '../../utils/Api/AuthApi';
 import * as SERVER_ANSWER from '../../utils/errorsMessages';
+import { REGISTRATION_NO } from '../../utils/constants';
 
 import './App.css';
 
@@ -35,6 +38,8 @@ function App() {
   const [pageType, setPageType] = React.useState(true);
 
   const [isMenuPopupOpen, setMenuPopupOpen] = React.useState(false);
+  const [isTooltipOpen, setTooltipOpen] = React.useState(false);
+
 
 
   //Авторизация
@@ -50,7 +55,7 @@ function App() {
           }
         })
         .catch(err => {
-          console.log(`Ошибка: ${err}. Проблема с токеном`);
+          console.log(`${SERVER_ANSWER.ERROR_TOKEN}${err}`);
         });
     } else {
       setPermissionsChecked(true)
@@ -70,12 +75,14 @@ function App() {
           localStorage.setItem('token', res.token);
           tokenCheck();
           mainApi.refreshHeaders();
-          setLoggedIn(true)
+          setLoggedIn(true);
+          setTooltipOpen(true);
           history.push('/movies');
 
         }
         else {
           setLoggedIn(false)
+
         }
       })
       .catch((err) => {
@@ -85,7 +92,7 @@ function App() {
           setServerError(SERVER_ANSWER.ERROR409);
         } else if (err.code === 500) {
           setServerError(SERVER_ANSWER.ERROR500);
-        } console.log(`Ошибка: ${err.code}`)
+        } console.log(`${err.code}`)
       })
   }
 
@@ -93,7 +100,7 @@ function App() {
     return login(email, password)
       .then((res) => {
         if (!res) {
-          console.log("Проверьте правильность введенных данных")
+          console.log(`${REGISTRATION_NO}`)
         }
         else {
           localStorage.setItem('token', res.token);
@@ -112,7 +119,7 @@ function App() {
           setServerError(SERVER_ANSWER.ERROR403Signin);
         } else if (err.code === 500) {
           setServerError(SERVER_ANSWER.ERROR500);
-        } console.log(`Ошибка: ${err.code}`)
+        } console.log(`${err.code}`)
       })
   }
 
@@ -171,7 +178,7 @@ function App() {
 
 
   // Фильмы
-  // А ВОТ ТУТ СТЕЙТ СОХРАНЕННЫХ ОБНОВЛЯЕТСЯ
+
   function handleSaveCard(movie) {
     if (pageType) {
       mainApi.createMovie(movie)
@@ -204,7 +211,7 @@ function App() {
         console.log('delete')
       })
       .catch(err => {
-        console.log(`При удалении карточки: ${err}`)
+        console.log(`${err.code}`)
       })
   }
 
@@ -228,12 +235,13 @@ function App() {
   function handleSavedMovieClick() {
     setPageType(false);
   }
-  function openPopup() {
+  function openMenuPopup() {
     setMenuPopupOpen(true);
   }
 
-  function closePopup() {
+  function closeAllPopup() {
     setMenuPopupOpen(false);
+    setTooltipOpen(false)
   }
 
   if (!permissionsChecked) {
@@ -244,12 +252,11 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
-          onMenuClick={openPopup}
+          onMenuClick={openMenuPopup}
           onMovieClick={handleMovieClick}
           onSavedMovieClick={handleSavedMovieClick}
         />
         <Switch>
-
           <Route exact path="/">
             <Main />
           </Route>
@@ -284,6 +291,7 @@ function App() {
           </ProtectedRoute>
 
           <Route path="/signup">
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
             <Signup
               onRegister={onRegister}
               serverError={serverError}
@@ -291,6 +299,7 @@ function App() {
           </Route>
 
           <Route path="/signin">
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
             <Signin
               onLogin={onLogin}
               serverError={serverError}
@@ -305,13 +314,17 @@ function App() {
 
         <MenuPopup
           isOpen={isMenuPopupOpen}
-          onClose={closePopup}
+          onClose={closeAllPopup}
         />
+
+        <Tooltip
+          isOpen={isTooltipOpen}
+          onClose={closeAllPopup}
+          loggedIn={loggedIn}
+        />
+
       </CurrentUserContext.Provider>
 
-      <Route >
-        {loggedIn ? <Redirect to='/movies' /> : <Redirect to='/' />}
-      </Route>
     </div >
   );
 }

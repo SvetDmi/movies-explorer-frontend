@@ -1,11 +1,15 @@
 import React from 'react';
 
-const Input = ({ sort, label, onChange, onBlur, value, name, type, placeholder, autoComplete, validError }) => {
+const Input = ({ variant, label, onChange, onBlur, value, name, type, placeholder, autoComplete, id, validError, errorMessage }) => {
     return (
-        <div className='input'>
-            <label className={`input__label input__label_${sort} `}>{label} </label>
+        <div className={`input input_${variant}`}>
+            <label
+                className={`input__label input__label_${variant}`} for={id}
+            >
+                {label}
+            </label>
             <input
-                className={`input__box input__box_${sort} ${validError ? 'input__box_error' : ''}`}
+                className={`input__box input__box_${variant} ${validError ? 'input__box_error' : ''}`}
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -13,8 +17,9 @@ const Input = ({ sort, label, onChange, onBlur, value, name, type, placeholder, 
                 type={type}
                 placeholder={placeholder}
                 autoComplete={autoComplete}
+                id={id}
                 required />
-            {(validError) && <span className='input__error'>Что-то пошло не так</span>}
+            {(validError) && <span className='input__error'>{errorMessage}</span>}
 
         </div>
     )

@@ -20,10 +20,16 @@
   font-size: 15px;
   padding: 18px 0 18px 18px;
   margin: 0;
-  /* max-width: 70%; */
+  max-width: 65%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
+}
+
+.card__title:hover {
+  overflow: visible;
+  white-space: normal;
 }
 
 .card__time {
@@ -31,6 +37,7 @@
   color: #a0a0a0;
   padding: 18px;
   margin: 0;
+  letter-spacing: -0.04em;
 }
 
 .card__label {

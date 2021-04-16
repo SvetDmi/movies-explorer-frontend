@@ -8,7 +8,7 @@ function Form({ buttonText, sort, formTitle, linkWay, text, linkText, children, 
         <div className='form' >
 
             <form className="form__form" method="post" action="#" noValidate onSubmit={onSubmit} serverError={serverError} >
-                <h2 className="form__title">{formTitle}</h2>
+                <h2 className={`form__title form__title_${sort}`}>{formTitle}</h2>
 
                 {children}
 

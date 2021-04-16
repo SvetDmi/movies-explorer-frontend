@@ -1,0 +1,106 @@
+.tooltip {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s ease-in;
+  z-index: 10;
+}
+
+.tooltip_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip__info {
+  height: 120px;
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: none;
+  margin-bottom: 32px;
+}
+
+.tooltip__container {
+  position: absolute;
+  padding: 36px;
+  box-sizing: border-box;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 430px;
+  background: #ffffff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.tooltip__info {
+  height: 120px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: none;
+  margin-top: 24px;
+  margin-bottom: 32px;
+}
+
+.tooltip__info_type_yes {
+  background-image: url("../../images/tooltipYes.svg");
+}
+
+.tooltip__title {
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+  color: black;
+  margin: 0 0 24px 0;
+}
+
+.tooltip__close {
+  padding: 0;
+  box-sizing: border-box;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto auto;
+  cursor: pointer;
+  box-shadow: none;
+  outline: none;
+  width: 40px;
+  height: 40px;
+  background-image: url("../../images/icon_close_white.svg");
+  border: none;
+  position: absolute;
+  right: -35px;
+  top: -35px;
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+
+.tooltip__close:hover {
+  opacity: 0.6;
+}
+
+@media all and (max-width: 720px) {
+  .tooltip__container {
+    width: 300px;
+    padding: 18px;
+  }
+  .tooltip__close {
+    width: 30px;
+    height: 30px;
+    right: -5px;
+  }
+
+  .tooltip__title {
+    font-size: 20px;
+    margin-bottom: 22px;
+  }
+}

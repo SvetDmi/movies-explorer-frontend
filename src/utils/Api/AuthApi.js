@@ -13,7 +13,7 @@ export const register = (name, email, password) => {
         body: JSON.stringify({ name, email, password })
     })
         .then((res => {
-            let data = res.json();
+            const data = res.json();
             if (!res.ok) {
                 return Promise.reject({ code: res.status });
                 // console.log(res.status)

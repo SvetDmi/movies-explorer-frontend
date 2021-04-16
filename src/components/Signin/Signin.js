@@ -6,8 +6,8 @@ import useInput from '../../utils/Hooks/useInput';
 
 function Signin({ onLogin, serverError }) {
 
-    const email = useInput('', { isEmpty: true, minLength: 3, isEmail: true })
-    const password = useInput('', { isEmpty: true, minLength: 5, maxLength: 15 })
+    const email = useInput('', { isEmpty: true,  isEmail: true })
+    const password = useInput('', { isEmpty: true, minLength: 8, maxLength: 15 })
 
     const handleSubmit = (e) => {
         e.preventDefault();

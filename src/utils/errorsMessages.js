@@ -22,6 +22,13 @@ const ERROR404 = "Страница по указанному маршруту н
 
 const ERROR_SEARCH = "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
 
+// Ошибки не с сервера
+const ERROR_TOKEN = "Проблема с токеном";
+const ERROR_EDIT_PROFILE = "Для внесения изменений необходимо ввести отличающиеся от текущих данные";
+const ERROR_NAME = "Необходимо ввести более 2 и менее 30 символов";
+const ERROR_PASSWORD = "Необходимо ввести более 8 и менее 15 символов";
+const ERROR_EMAIL = "Введенные данные не соответствуют формату электронной почты";
+
 module.exports = {
     ERROR400Signin,
     ERROR401Signin,
@@ -31,6 +38,10 @@ module.exports = {
     ERROR409,
     ERROR500,
     ERROR404,
-    ERROR_SEARCH
-
+    ERROR_SEARCH,
+    ERROR_TOKEN,
+    ERROR_EDIT_PROFILE,
+    ERROR_NAME,
+    ERROR_PASSWORD,
+    ERROR_EMAIL
 };

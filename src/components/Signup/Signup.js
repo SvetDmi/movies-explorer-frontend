@@ -5,9 +5,9 @@ import logo from '../../images/logo.svg';
 import useInput from '../../utils/Hooks/useInput';
 
 function Signup({ onRegister, serverError }) {
-    const name = useInput('', { minLength: 5, maxLength: 30 })
-    const email = useInput('', { minLength: 3, isEmail: true })
-    const password = useInput('', { minLength: 5, maxLength: 15 })
+    const name = useInput('', { minLength: 2, maxLength: 30 })
+    const email = useInput('', { isEmail: true })
+    const password = useInput('', { minLength: 8, maxLength: 15 })
 
 
     const handleRegisterSubmit = (e) => {
@@ -33,7 +33,7 @@ function Signup({ onRegister, serverError }) {
             >
 
                 <Input
-                    placeholder="Светлана"
+                    placeholder="Введите имя"
                     label="Имя"
                     onChange={e => name.onChange(e)}
                     onBlur={e => name.onBlur(e)}

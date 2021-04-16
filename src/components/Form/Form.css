@@ -18,6 +18,10 @@
   margin: 0 0 40px 0;
 }
 
+.form__title_profile {
+  align-self: center;
+}
+
 .form__form {
   display: flex;
   flex-direction: column;

@@ -1,13 +1,14 @@
 import React from 'react';
 import logo from '../../images/logo.svg';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { Route, Switch, Link, NavLink } from 'react-router-dom';
 
 function Header({ onMenuClick, onMovieClick, onSavedMovieClick }) {
 
     return (
 
         <header className="page__section  header" >
-            <img src={logo} alt="Логотип" className="header__logo" />
+            <Link to='/'>
+                <img src={logo} alt="Логотип" className="header__logo" /></Link>
             <Switch>
                 <Route path={["/movies/", "/saved-movies/", "/profile/"]}>
                     <nav className="header__movies" >
