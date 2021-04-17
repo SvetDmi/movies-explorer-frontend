@@ -1,57 +1,31 @@
 import React from 'react';
-import SearchForm from '../SearchForm/SearchForm';
-import CardList from '../CardList/CardList';
-import Card from '../Card/Card'
 import Footer from '../Footer/Footer';
+import MoviesList from '../MoviesList/MoviesList';
 
-function Movies(
+function Movies({
 
-) {
+    cards,
+    savedCards,
+    deleteMovie,
+    createMovie,
+    pageType
+
+}) {
+
     return (
-        <main className="movies">
+        <main className="moviesList">
 
-            <SearchForm />
-            <CardList>
-                <Card
-                    isLiked={true}
-                />
-                <Card
-                    isLiked={true}
-                />
-                <Card
-                    buttonText="Сохранить"
-                />
-                <Card
-                    buttonText="Сохранить"
-                />
-                <Card
-                    buttonText="Сохранить"
-                />
-                <Card
-                    isLiked={true}
-                />
-                <Card
-                    isLiked={true}
-                />
-                <Card
-                    buttonText="Сохранить"
-                />
-                <Card
-                    buttonText="Сохранить"
-                />
-                <Card
-                    buttonText="Сохранить"
-                />
-                <Card
-                    isLiked={true}
-                />
-                <Card
-                    buttonText="Сохранить"
-                />
-            </CardList>
-            <button className="movies__button" type="button">Ещё</button>
+            <MoviesList
+                cards={cards}
+                savedCards={savedCards}
+                deleteMovie={deleteMovie}
+                createMovie={createMovie}
+
+                pageType={pageType}
+
+            />
             <Footer />
-        </main>
+        </main >
     );
 }
 

@@ -6,6 +6,8 @@ function useValidation(value, validations) {
     const [maxLengthError, setMaxLengthError] = React.useState(false)
     const [emailError, setEmailError] = React.useState(false)
     const [inputValid, setInputValid] = React.useState(false)
+    const [noEmpty, setNoEmpty] = React.useState(false)
+    const [isEmpty, setEmpty] = React.useState(false)
 
     React.useEffect(() => {
         for (const validation in validations) {
@@ -27,24 +29,33 @@ function useValidation(value, validations) {
                     re.test(String(value).toLowerCase()) ? setEmailError(false) : setEmailError(true)
                     break;
 
+                case 'noEmpty':
+                    (value.length > 0) && (value.length < validations[validation]) ? setNoEmpty(true) : setNoEmpty(false)
+                    break;
+
+                case 'empty':
+                    value.length === 0 ? setEmpty(true) : setEmpty(false)
+                    break;
             }
         }
     }, [validations, value])
 
     React.useEffect(() => {
-        if (minLengthError || maxLengthError || emailError) {
+        if (minLengthError || maxLengthError || emailError || isEmpty) {
             setInputValid(false)
         } else {
             setInputValid(true)
         }
 
-    }, [minLengthError, maxLengthError, emailError])
+    }, [minLengthError, maxLengthError, emailError, isEmpty])
 
     return {
         minLengthError,
         maxLengthError,
         emailError,
-        inputValid
+        inputValid,
+        isEmpty,
+        noEmpty
     }
 }
 
