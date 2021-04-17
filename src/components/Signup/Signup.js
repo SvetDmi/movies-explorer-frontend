@@ -3,6 +3,7 @@ import Form from '../Form/Form';
 import Input from '../Input/Input';
 import logo from '../../images/logo.svg';
 import useInput from '../../utils/Hooks/useInput';
+import { ERROR_NAME, ERROR_EMAIL, ERROR_PASSWORD } from '../../utils/errorsMessages'
 
 function Signup({ onRegister, serverError }) {
     const name = useInput('', { minLength: 2, maxLength: 30 })
@@ -41,6 +42,7 @@ function Signup({ onRegister, serverError }) {
                     type="text"
                     name="name"
                     autoComplete="current-name"
+                    errorMessage={ERROR_NAME}
                     validError={name.isDirty && (name.minLengthError || name.maxLengthError)}
                 />
 
@@ -53,18 +55,20 @@ function Signup({ onRegister, serverError }) {
                     name='email'
                     type='text'
                     autoComplete="current-email"
+                    errorMessage={ERROR_EMAIL}
                     validError={email.isDirty && (email.minLengthError || email.emailError)}
                 />
 
                 <Input
+                    placeholder="Введите пароль"
                     label="Пароль"
                     onChange={e => password.onChange(e)}
                     onBlur={e => password.onBlur(e)}
                     value={password.value}
                     name='password'
-                    type='password'
-                    placeholder=''
+                    type='password'                    
                     autoComplete="current-password"
+                    errorMessage={ERROR_PASSWORD}
                     validError={password.isDirty && (password.minLengthError || password.maxLengthError)}
                 />
             </Form>

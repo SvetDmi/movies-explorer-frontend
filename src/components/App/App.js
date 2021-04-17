@@ -35,8 +35,6 @@ function App() {
   const [cards, setCards] = React.useState([]);
   const [savedCards, setSavedCards] = React.useState([]);
 
-  const [pageType, setPageType] = React.useState(true);
-
   const [isMenuPopupOpen, setMenuPopupOpen] = React.useState(false);
   const [isTooltipOpen, setTooltipOpen] = React.useState(false);
 
@@ -179,29 +177,30 @@ function App() {
 
   // Фильмы
 
-  function handleSaveCard(movie) {
-    if (pageType) {
-      mainApi.createMovie(movie)
-        .then((savedCard) => {
-          setSavedCards([savedCard, ...savedCards]);
 
-          console.log(savedCard)
-        })
-        .catch((err) => {
-          console.log(`${err}`);
-        })
-    } else {
-      mainApi.createSavedMovie(movie)
-        .then((savedCard) => {
-          setSavedCards([savedCard, ...savedCards]);
-
-          console.log(savedCard)
-        })
-        .catch((err) => {
-          console.log(`${err}`);
-        })
-    }
+  function createMovie(movie) {
+    mainApi.createMovie(movie)
+      .then((savedCard) => {
+        setSavedCards([savedCard, ...savedCards]);
+        console.log(savedCard)
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
   }
+
+  function createSavedMovie(movie) {
+    mainApi.createSavedMovie(movie)
+      .then((savedCard) => {
+        setSavedCards([savedCard, ...savedCards]);
+
+        console.log(savedCard)
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+  }
+
 
   function deleteMovie(card) {
     mainApi.deleteMovie(card._id)
@@ -215,26 +214,8 @@ function App() {
       })
   }
 
-  function handleDeleteCard(card) {
-    if (pageType) {
-      const savedMovie = savedCards.find((c) => c.movieId === card.id);
-      deleteMovie(savedMovie)
-
-    } else {
-      deleteMovie(card)
-    }
-  }
-
-
   //  Хедер
 
-  function handleMovieClick() {
-    setPageType(true);
-
-  }
-  function handleSavedMovieClick() {
-    setPageType(false);
-  }
   function openMenuPopup() {
     setMenuPopupOpen(true);
   }
@@ -253,8 +234,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header
           onMenuClick={openMenuPopup}
-          onMovieClick={handleMovieClick}
-          onSavedMovieClick={handleSavedMovieClick}
+          loggedIn={loggedIn}
         />
         <Switch>
           <Route exact path="/">
@@ -265,10 +245,9 @@ function App() {
             <Movies
               cards={cards}
               savedCards={savedCards}
-              onDeleteCard={handleDeleteCard}
-              onSaveCard={handleSaveCard}
-              pageType={pageType}
-
+              deleteMovie={deleteMovie}
+              createMovie={createMovie}
+              pageType={true}
             />
           </ProtectedRoute>
 
@@ -276,9 +255,9 @@ function App() {
             <SavedMovies
               cards={savedCards}
               savedCards={savedCards}
-              onDeleteCard={handleDeleteCard}
-              onSaveCard={handleSaveCard}
-              pageType={pageType}
+              deleteMovie={deleteMovie}
+              createSavedMovie={createSavedMovie}
+              pageType={false}
             />
           </ProtectedRoute>
 
@@ -328,5 +307,6 @@ function App() {
     </div >
   );
 }
+
 
 export default App;

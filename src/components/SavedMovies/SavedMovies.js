@@ -6,8 +6,8 @@ import MoviesList from '../MoviesList/MoviesList';
 function SavedMovies({
     cards,
     savedCards,
-    onDeleteCard,
-    onSaveCard,
+    deleteMovie,
+    createSavedMovie,
     pageType
 
 
@@ -17,8 +17,8 @@ function SavedMovies({
             <MoviesList
                 cards={cards}
                 savedCards={savedCards}
-                onDeleteCard={onDeleteCard}
-                onSaveCard={onSaveCard}
+                deleteMovie={deleteMovie}
+                createSavedMovie={createSavedMovie}
                 pageType={pageType}
             />
             <Footer />

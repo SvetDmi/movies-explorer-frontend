@@ -15,7 +15,6 @@ function Profile({ onLogout, onEditUser, serverError }) {
     const [sameName, setSameName] = React.useState(false);
     const [sameEmail, setSameEmail] = React.useState(false);
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         onEditUser({ name: name.value, email: email.value })
@@ -54,7 +53,6 @@ function Profile({ onLogout, onEditUser, serverError }) {
                     value={name.value}
                     type="text"
                     name="name"
-                    id={name}
                     errorMessage={sameName ? ERROR_EDIT_PROFILE : ERROR_NAME}
                     validError={name.isDirty && (name.minLengthError || name.maxLengthError || sameName)}
                 />
@@ -68,7 +66,6 @@ function Profile({ onLogout, onEditUser, serverError }) {
                     value={email.value}
                     name='email'
                     type='text'
-                    id={email}
                     errorMessage={sameEmail ? ERROR_EDIT_PROFILE : ERROR_EMAIL}
                     validError={email.isDirty && (email.emailError || sameEmail)}
                 />

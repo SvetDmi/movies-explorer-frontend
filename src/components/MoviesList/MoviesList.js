@@ -13,6 +13,9 @@ function MoviesList({
     pageType,
     onDeleteCard,
     onSaveCard,
+    deleteMovie,
+    createMovie,
+    createSavedMovie
 }) {
     const [foundCards, setFoundCards] = React.useState([]);
     const [isLoading, setLoading] = React.useState(false);
@@ -112,6 +115,24 @@ function MoviesList({
         setChecked(!isChecked);
     }
 
+    function handleDeleteCard(card) {
+        if (pageType) {
+            const savedMovie = savedCards.find((c) => c.movieId === card.id);
+            deleteMovie(savedMovie)
+
+        } else {
+            deleteMovie(card)
+        }
+    }
+
+    function handleSaveCard(movie) {
+        if (pageType) {
+            createMovie(movie)
+        } else {
+            createSavedMovie(movie)
+        }
+    }
+
     let element;
     if (isLoading) {
         element = <Preloader />
@@ -143,8 +164,8 @@ function MoviesList({
                                     key={card.id || card._id}
                                     pageType={pageType}
                                     liked={savedCards.find((c) => c.movieId === card.id)}
-                                    onDeleteCard={onDeleteCard}
-                                    onSaveCard={onSaveCard}
+                                    onDeleteCard={handleDeleteCard}
+                                    onSaveCard={handleSaveCard}
                                     savedCards={savedCards}
                                 />
                             )
@@ -155,8 +176,8 @@ function MoviesList({
                                     key={card.id || card._id}
                                     pageType={pageType}
                                     // liked={savedCards.find((c) => c.movieId === card.id)}
-                                    onDeleteCard={onDeleteCard}
-                                    onSaveCard={onSaveCard}
+                                    onDeleteCard={handleDeleteCard}
+                                    onSaveCard={handleSaveCard}
                                     savedCards={savedCards}
                                 />
                             )

@@ -6,8 +6,8 @@ function Movies({
 
     cards,
     savedCards,
-    onDeleteCard,
-    onSaveCard,
+    deleteMovie,
+    createMovie,
     pageType
 
 }) {
@@ -18,8 +18,9 @@ function Movies({
             <MoviesList
                 cards={cards}
                 savedCards={savedCards}
-                onDeleteCard={onDeleteCard}
-                onSaveCard={onSaveCard}
+                deleteMovie={deleteMovie}
+                createMovie={createMovie}
+
                 pageType={pageType}
 
             />
